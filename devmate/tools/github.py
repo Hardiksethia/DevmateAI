@@ -66,14 +66,23 @@ def list_pr_review_comments(repo: str, pr_number: int):
         pr = repo_obj.get_pull(pr_number)
         comments = pr.get_review_comments()
 
-        return [
-            {
+        result = []
+        for c in comments:
+            # Safely get attributes - line might be None or not exist
+            comment_data = {
                 "id": c.id,
-                "path": c.path,
-                "line": c.line,
+                "path": getattr(c, 'path', None),
                 "body": c.body,
             }
-            for c in comments
-        ]
+            
+            # Try to get line number - it might not exist or be None
+            if hasattr(c, 'line'):
+                comment_data["line"] = c.line
+            else:
+                comment_data["line"] = None
+            
+            result.append(comment_data)
+        
+        return result
     except GithubException as e:
         return {"error": f"GitHub error {e.status}: {e.data.get('message')}"}

@@ -64,10 +64,10 @@ If the intent is to explain or analyze code:
 - Then return a print action summarizing the explanation
 
 If the intent is to fix PR review comments:
-- Fetch review comments
-- Read the referenced files
-- Apply fixes
-- Commit changes
+- ONLY fetch review comments using github_list_review_comments
+- Do NOT generate read_file or write_file steps (these are handled automatically)
+- Do NOT use placeholder paths like "path/to/relevant/file.py"
+- The agent will automatically read files, apply fixes, and commit based on the review comments
 
 
 If the intent is unclear or unsafe:
@@ -82,7 +82,7 @@ Example output:
 
 Example output:
 [
-  {"action": "github_list_review_comments", "payload": {"repo": "owner/repo", "pr_number": 12}},
+  {"action": "github_list_review_comments", "payload": {"repo": "owner/repo", "pr": 12}},
   {"action": "read_file", "payload": {"path": "devmate/tools/git.py"}},
   {"action": "write_file", "payload": {"path": "devmate/tools/git.py", "content": "<updated code>"}},
   {"action": "git_commit", "payload": {"message": "Fix PR review comments"}}

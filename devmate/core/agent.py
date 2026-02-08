@@ -37,7 +37,7 @@ class Agent:
            result = self.executor.execute(action, payload)
 
            # ---- SPECIAL: PR REVIEW AUTOFIX ----
-           if action == "github_list_pr_review_comments":
+           if action == "github_list_review_comments":
                comments = result.get("comments", [])
 
                for comment in comments:

@@ -152,10 +152,10 @@ class Executor:
 
     def _handle_github_list_review_comments(self, payload):
         repo = payload.get("repo")
-        pr = payload.get("pr_number")
+        pr = payload.get("pr")
 
         if not repo or not pr:
-            raise ValueError("github_list_review_comments requires repo and pr_number")
+            raise ValueError("github_list_review_comments requires repo and pr")
 
         from devmate.tools import github
         return {

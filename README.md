@@ -273,8 +273,9 @@ This project is intentionally designed to reflect production-grade AI agent syst
 
 
 👤 Author
-Hardik Sethia
+Hardik Sethia and Yatharth Aggarwal 
 Building AI agents, developer tools, and autonomous systems.
+
 
 
 
